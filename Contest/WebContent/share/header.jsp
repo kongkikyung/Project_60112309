@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String[][] menu = {
 		{"./index.jsp", "Home" },
 		{"./contest", "게시판" },
-		{"./join", "회원관리" }
+		{"./join", "UserList" }
 	};
-
 
   String currentMenu = request.getParameter("current");
 	
@@ -39,6 +39,15 @@
   <div class="container container-fluid" style="padding-top:50px">
   		<div class="form-group">
 			<a href="join?op=signup" class="btn btn-default btn-primary" style="float:right">Sign Up</a>
+			<c:choose>
+				<c:when test="${userid==null}">
+					<a href="login?op=login" class="btn btn-default btn-primary" style="float:right">Login</a>
+				</c:when>
+				<c:otherwise>
+					<a href="login?op=logout" class="btn btn-default btn-primary" style="float:right">Logout</a>
+				</c:otherwise>
+			</c:choose>
 		</div>
-		<h1>WP_HW4</h1>
+		
+		<h1>공모전</h1>
  	</div>

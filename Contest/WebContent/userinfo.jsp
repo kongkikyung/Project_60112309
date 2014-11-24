@@ -6,7 +6,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>회원목록</title>
+	<title>회원정보</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/base.css" rel="stylesheet">
 	<script src="js/jquery-1.8.2.min.js"></script>
@@ -40,14 +40,14 @@
 				data-id="${user.id}">삭제</a>
 		</div>
 		<script>
-	  $(function{
-	    $("a[data-action='delete']").click(function() {
-	      if (confirm("정말로 삭제하시겠습니까?")) {
-	        location = 'join?op=delete&id=' + $(this).attr('data-id');
-	      }
-	      return false;
-	    });
-	  });
+		$(function() {
+			$("a[data-action='delete']").click(function() {
+				if (confirm("정말로 삭제하시겠습니까?")) {
+					location = 'join?op=delete&id=' + $(this).attr('data-id');
+				}
+				return false;
+			});
+		});
 	</script>
 	</div>
 </body>

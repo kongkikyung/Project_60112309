@@ -44,7 +44,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="text">글 내용</label>
 						<div class="col-sm-3">
-							<textarea class="input-sm" name="text" cols="80" row="5">
+							<textarea class="input-sm" name="text" cols="80" rows="5">
 							<c:out value="${writingContent.text}"/>
 							</textarea>
 						</div>
@@ -72,7 +72,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="text">글 내용</label>
 						<div class="col-sm-3">
-							<textarea class="input-sm" name="text" cols="80" row="5">
+							<textarea class="input-sm" name="text" cols="80" rows="5">
 							<c:out value="${writingContent.text }"/>
 							</textarea>
 						</div>

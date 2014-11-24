@@ -206,7 +206,6 @@ public class UserDAO {
 			// 질의 준비
 			stmt = conn.prepareStatement("DELETE FROM Tusers WHERE id1=?");
 			stmt.setInt(1,  id);
-			
 			// 수행
 			result = stmt.executeUpdate();
 		} finally {
@@ -215,7 +214,44 @@ public class UserDAO {
 			if (stmt != null) try{stmt.close();} catch(SQLException e) {}
 			if (conn != null) try{conn.close();} catch(SQLException e) {}
 		}
-		
 		return (result == 1);		
+	}
+	
+	public static User findByuserid(String userid) throws NamingException, SQLException{
+		User user = null;
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		DataSource ds = getDataSource();
+		
+		try {
+			conn = ds.getConnection();
+
+			// 질의 준비
+			stmt = conn.prepareStatement("SELECT * FROM Tusers WHERE userid = ?");
+			stmt.setString(1, userid);
+			
+			// 수행
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				user = new User(rs.getInt("id1"),
+						rs.getString("userid"),
+						rs.getString("name"),
+						rs.getString("pwd"),
+						rs.getString("gender"),
+						rs.getString("major"),
+						rs.getString("phone"),
+						rs.getString("email"));
+			}	
+		} finally {
+			// 무슨 일이 있어도 리소스를 제대로 종료
+			if (rs != null) try{rs.close();} catch(SQLException e) {}
+			if (stmt != null) try{stmt.close();} catch(SQLException e) {}
+			if (conn != null) try{conn.close();} catch(SQLException e) {}
+		}
+		return user;
 	}
 }

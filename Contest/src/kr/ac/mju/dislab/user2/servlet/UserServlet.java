@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.ac.mju.dislab.user2.PageResult;
 import kr.ac.mju.dislab.user2.User;
@@ -30,7 +31,6 @@ public class UserServlet extends HttpServlet {
     public UserServlet() {
         super();
     }
-
 
 	private int getIntFromParameter(String str, int defaultValue) {
 		int id;
@@ -54,23 +54,23 @@ public class UserServlet extends HttpServlet {
 		int id = getIntFromParameter(request.getParameter("id"), -1);
 		
 		if (op == null && id > 0) {
-			op = "show";
+			op = "userinfo";
 		}
 		
 		try {
-			if (op == null || op.equals("index")) {
+			if (op == null || op.equals("userlist")) {
 				int page = getIntFromParameter(request.getParameter("page"), 1);
 				
 				PageResult<User> users = UserDAO.getPage(page, 10);
 				request.setAttribute("users", users);
 				request.setAttribute("page", page);
-				actionUrl = "index.jsp";
-			} else if (op.equals("show")) {
+				actionUrl = "userlist.jsp";
+			} else if (op.equals("userinfo")) {
 				User user = UserDAO.findById(id);
 				request.setAttribute("user", user);
 
-				actionUrl = "show.jsp";
-			} else if (op.equals("update")) {
+				actionUrl = "userinfo.jsp";
+			}  else if (op.equals("update")) {
 				User user = UserDAO.findById(id);
 				request.setAttribute("user", user);
 				request.setAttribute("method", "PUT");
@@ -82,7 +82,7 @@ public class UserServlet extends HttpServlet {
 				
 				if (ret) {
 					request.setAttribute("msg", "사용자 정보가 삭제되었습니다.");
-					actionUrl = "success.jsp";
+					actionUrl = "usersuccess.jsp";
 				} else {
 					request.setAttribute("error", "사용자 정보 삭제에 실패했습니다.");
 					actionUrl = "error.jsp";
@@ -92,6 +92,9 @@ public class UserServlet extends HttpServlet {
 				request.setAttribute("method", "POST");
 				request.setAttribute("user", new User());
 				actionUrl = "signup.jsp";
+			} else if (op.equals("login")) {
+				request.setAttribute("method", "POST");
+				actionUrl = "login.jsp";
 			} else {
 				request.setAttribute("error", "알 수 없는 명령입니다");
 				actionUrl = "error.jsp";
@@ -101,12 +104,9 @@ public class UserServlet extends HttpServlet {
 			e.printStackTrace();
 			actionUrl = "error.jsp";
 		}
-		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(actionUrl);
 		dispatcher.forward(request,  response);
-		
 	}
-
 
 	private boolean isRegisterMode(HttpServletRequest request) {
 		String method = request.getParameter("_method");
@@ -121,7 +121,7 @@ public class UserServlet extends HttpServlet {
 		String actionUrl;
 		String msg;
 		User user = new User();
-
+		
 		request.setCharacterEncoding("utf-8");
 		
 		String userid = request.getParameter("userid");
@@ -167,14 +167,14 @@ public class UserServlet extends HttpServlet {
 		user.setEmail(email);
 		user.setPhone(phone);
 		
-
 		try {
 			if (isRegisterMode(request)) {
 				ret = UserDAO.create(user);
+				actionUrl = "usersuccess.jsp";
 				msg = "<b>" + name + "</b>님의 사용자 정보가 등록되었습니다.";
 			} else {
 				ret = UserDAO.update(user);
-				actionUrl = "success.jsp";
+				actionUrl = "usersuccess.jsp";
 				msg = "<b>" + name + "</b>님의 사용자 정보가 수정되었습니다.";
 			}
 			if (ret != true) {
@@ -182,14 +182,12 @@ public class UserServlet extends HttpServlet {
 				actionUrl = "error.jsp";
 			} else {
 				request.setAttribute("msg", msg);
-				actionUrl = "success.jsp";
-				
+				actionUrl = "usersuccess.jsp";
 			}
 		} catch (SQLException | NamingException e) {
 			errorMsgs.add(e.getMessage());
 			actionUrl = "error.jsp";
 		}
-		
 		request.setAttribute("errorMsgs", errorMsgs);
 		RequestDispatcher dispatcher = request.getRequestDispatcher(actionUrl);
 		dispatcher.forward(request,  response);

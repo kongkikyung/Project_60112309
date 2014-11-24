@@ -82,7 +82,7 @@ public class BoardServlet extends HttpServlet {
 				
 				if (ret) {
 					request.setAttribute("msg", "글이 삭제되었습니다.");
-					actionUrl = "success.jsp";
+					actionUrl = "writingsuccess.jsp";
 				} else {
 					request.setAttribute("error", "글 삭제에 실패했습니다.");
 					actionUrl = "error.jsp";
@@ -154,7 +154,7 @@ public class BoardServlet extends HttpServlet {
 				msg ="글이 등록되었습니다.";
 			} else {
 				ret = BoardDAO.update(writingContent);
-				actionUrl = "success.jsp";
+				actionUrl = "writingsuccess.jsp";
 				msg = "글이 수정되었습니다.";
 			}
 			
