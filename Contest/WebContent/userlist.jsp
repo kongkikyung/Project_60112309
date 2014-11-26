@@ -67,10 +67,6 @@
 			<jsp:param name="numPages" value="${users.numPages}" />
 		</jsp:include>
 
-		<div class="form-group">
-			<a href="join?op=signup" class="btn btn-default btn-primary">Sign
-				Up</a>
-		</div>
 	</div>
 	<jsp:include page="share/footer.jsp" />
 </body>

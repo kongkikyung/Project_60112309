@@ -64,8 +64,7 @@
 					<div class="form-group ">
 						<label class="col-sm-2 control-label" for="userName">작성자</label>
 						<div class="col-sm-3">
-							<input type="text" class="form-control" name="userName">
-							<c:out value="${writingContent.userName }"/>
+							<input type="text" class="form-control" name="userName" value="${name }">
 						</div>
 					</div>
 

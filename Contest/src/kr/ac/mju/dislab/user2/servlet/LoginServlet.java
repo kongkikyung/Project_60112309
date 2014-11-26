@@ -50,8 +50,6 @@ public class LoginServlet extends HttpServlet {
 		
 		String userid = request.getParameter("userid");
 		String pwd = request.getParameter("pwd");
-		System.out.println(userid);
-		System.out.println(pwd);
 		
 		try {
 			User userMatch = UserDAO.findByuserid(userid);

@@ -16,7 +16,7 @@
   <div class="container navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="./index.jsp">KikyungKong</a>
+        <a class="navbar-brand" href="./index.jsp">공모전</a>
       </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">

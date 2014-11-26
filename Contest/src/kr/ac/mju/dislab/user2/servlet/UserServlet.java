@@ -49,6 +49,7 @@ public class UserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String op = request.getParameter("op");
 		String actionUrl = "";
+		HttpSession session = request.getSession();
 		boolean ret;
 		
 		int id = getIntFromParameter(request.getParameter("id"), -1);
@@ -66,10 +67,13 @@ public class UserServlet extends HttpServlet {
 				request.setAttribute("page", page);
 				actionUrl = "userlist.jsp";
 			} else if (op.equals("userinfo")) {
+				if(session.getAttribute("userid")==null) {
+				 actionUrl = "login.jsp";
+				} else {
 				User user = UserDAO.findById(id);
 				request.setAttribute("user", user);
-
-				actionUrl = "userinfo.jsp";
+				 actionUrl = "userinfo.jsp";
+				}
 			}  else if (op.equals("update")) {
 				User user = UserDAO.findById(id);
 				request.setAttribute("user", user);

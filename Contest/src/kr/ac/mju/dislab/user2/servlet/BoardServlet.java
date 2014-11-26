@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.ac.mju.dislab.user2.BoardDAO;
 import kr.ac.mju.dislab.user2.PageResult;
@@ -50,13 +51,15 @@ public class BoardServlet extends HttpServlet {
 		String op = request.getParameter("op");
 		String actionUrl = "";
 		boolean ret;
-		
+		HttpSession session = request.getSession();
 		int id = getIntFromParameter(request.getParameter("id"), -1);
 		
 		if (op == null && id > 0) {
 			op = "show";
 		}
-		
+		WritingContent wcont = new WritingContent();
+		String userName = (String) session.getAttribute("name");
+		wcont.setUserName(userName);
 		try {
 			if (op == null || op.equals("index")) {
 				int page = getIntFromParameter(request.getParameter("page"), 1);
@@ -68,8 +71,8 @@ public class BoardServlet extends HttpServlet {
 			} else if (op.equals("show")) {
 				WritingContent writing = BoardDAO.findById(id);
 				request.setAttribute("writingContent", writing);
-
-				actionUrl = "show.jsp";
+				if(session.getAttribute("userid")==null) actionUrl = "login.jsp";
+				else actionUrl = "show.jsp";
 			} else if (op.equals("update")) {
 				WritingContent writing = BoardDAO.findById(id);
 				request.setAttribute("writingContent", writing);
@@ -90,8 +93,9 @@ public class BoardServlet extends HttpServlet {
 					
 			} else if (op.equals("writing")) {
 				request.setAttribute("method", "POST");
-				request.setAttribute("writing", new WritingContent());
-				actionUrl = "writing.jsp";
+				request.setAttribute("writingContent", wcont);
+				if(session.getAttribute("userid")==null) actionUrl = "login.jsp";
+				else actionUrl = "writing.jsp";
 			} else {
 				request.setAttribute("error", "알 수 없는 명령입니다");
 				actionUrl = "error.jsp";
@@ -101,10 +105,8 @@ public class BoardServlet extends HttpServlet {
 			e.printStackTrace();
 			actionUrl = "error.jsp";
 		}
-		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(actionUrl);
 		dispatcher.forward(request,  response);
-		
 	}
 
 
@@ -163,14 +165,12 @@ public class BoardServlet extends HttpServlet {
 				actionUrl = "error.jsp";
 			} else {
 				request.setAttribute("msg", msg);
-				actionUrl = "success.jsp";
-				
+				actionUrl = "writingsuccess.jsp";
 			}
 		} catch (SQLException | NamingException e) {
 			errorMsgs.add(e.getMessage());
 			actionUrl = "error.jsp";
 		}
-		
 		request.setAttribute("errorMsgs", errorMsgs);
 		RequestDispatcher dispatcher = request.getRequestDispatcher(actionUrl);
 		dispatcher.forward(request,  response);
