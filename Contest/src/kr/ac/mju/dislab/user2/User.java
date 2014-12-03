@@ -11,8 +11,9 @@ public class User implements java.io.Serializable {
 
 	private int id;
 	private String userid;
-	private String name;
 	private String pwd;
+	private String name;
+	private String photo;
 	private String gender;
 	private String major;
 	private String phone;
@@ -21,13 +22,14 @@ public class User implements java.io.Serializable {
 	// No-arg constructor 가 있어야 한다.
 	public User() {
 	}
-	public User(int id, String userid, String name, String pwd, String gender, String major,
+	public User(int id, String userid, String name, String photo, String pwd, String gender, String major,
 			String phone, String email) {
 		super();
 		this.id = id;
 		this.userid = userid;
-		this.pwd = pwd;
 		this.name = name;
+		this.photo = photo;
+		this.pwd = pwd;
 		this.gender = gender;
 		this.major = major;
 		this.phone = phone;
@@ -65,7 +67,12 @@ public class User implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 	public String getGender() {
 		return gender;
 	}

@@ -40,7 +40,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="user" items="${users.list }">
+				<c:forEach var="user" items="${users.list}">
 					<tr>
 						<td><a href="join?id=${user.id}"><c:out
 									value="${user.userid}" /></a></td>
@@ -49,11 +49,18 @@
 						<td><c:out value="${user.major}" /></td>
 						<td><c:out value="${user.phone}" /></td>
 						<td><c:out value="${user.email}" /></td>
-						
+						<td><img src="img/photo/sm${user.photo}"/></td>
+						<c:choose>
+							<c:when test="${userid==null}">
+								<td>접근 권한 없음</td>
+							</c:when>
+							<c:otherwise>
 						<td><a href="join?op=update&id=${user.id}"
 							class="btn btn-default btn-xs">modify</a> <a href="#"
 							class="btn btn-default btn-xs btn-danger" data-action="delete"
 							data-id="${user.id}">delete</a></td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 				</c:forEach>
 			</tbody>

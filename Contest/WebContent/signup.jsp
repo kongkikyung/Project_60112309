@@ -19,20 +19,32 @@
 
 	<div class="container">
 		<div>
-			<form class="form-horizontal" action="join" method="POST">
+			<form class="form-horizontal" action="join" method="POST" enctype="multipart/form-data">
 				<fieldset>
 					<legend class="legend">Sign Up</legend>
 					<c:if test="${method == 'PUT'}">
 						<input type="hidden" name="id" value="${user.id }" />
 						<input type="hidden" name="_method" value="PUT" />
 					</c:if>
+					
+					<c:choose>
+					<c:when test="${method == 'PUT'}">
 					<div class="form-group ">
 						<label class="col-sm-2 control-label" for="userid">ID</label>
 						<div class="col-sm-3">
-							<input type="text" class="form-control" name="userid"
-								value="${user.userid}">
+							<input type="text" class="form-control" name="userid" value="${user.userid }" readonly/>
 						</div>
 					</div>
+					</c:when>
+					<c:otherwise>
+					<div class="form-group ">
+						<label class="col-sm-2 control-label" for="userid">ID</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" name="userid" value="${user.userid }">
+						</div>
+					</div>
+					</c:otherwise>
+					</c:choose>
 
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="name">Name</label>
@@ -40,6 +52,17 @@
 							<input type="text" class="form-control" placeholder="홍길동"
 								name="name" value="${user.name}">
 						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="photo"><i class="icon-picture"></i>프로필 사진</label>
+							<div class="controls">
+							<input type="file" name="photo">
+							<c:if test="${user.photo != null}">
+								<p>등록된 사진 <c:out value="${user.photo}"/> 이 있습니다.</p> 
+							</c:if>
+								<p>사진의 크기는 최대 2MB까지 가능합니다.</p>
+							</div>
 					</div>
 
 					<c:if test="${method == 'POST'}">

@@ -43,6 +43,7 @@ public class LoginServlet extends HttpServlet {
 		boolean ret = false;
 		String actionUrl = null;
 		String msg;
+		HttpSession session = request.getSession();
 		
 		List<String> errorMsgs = new ArrayList<String>();
 		
@@ -54,7 +55,6 @@ public class LoginServlet extends HttpServlet {
 		try {
 			User userMatch = UserDAO.findByuserid(userid);
 			if(userMatch != null && pwd.equals(userMatch.getPwd())) {
-				HttpSession session = request.getSession();
 				session.setAttribute("userid", userMatch.getUserid());
 				session.setAttribute("name", userMatch.getName());
 				actionUrl = "index.jsp";

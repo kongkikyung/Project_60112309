@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String[][] menu = {
-		{"./index.jsp", "Home" },
+		{"./main.jsp", "Home" },
 		{"./contest", "게시판" },
 		{"./join", "UserList" }
 	};
@@ -16,7 +16,7 @@
   <div class="container navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="./index.jsp">공모전</a>
+        <div class="navbar-brand">공모전</div>
       </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -38,7 +38,13 @@
   </div>
   <div class="container container-fluid" style="padding-top:50px">
   		<div class="form-group">
+  			<c:choose>
+  				<c:when test="${userid==null}">
 			<a href="join?op=signup" class="btn btn-default btn-primary" style="float:right">Sign Up</a>
+				</c:when>
+				<c:otherwise>
+				</c:otherwise>
+			</c:choose>
 			<c:choose>
 				<c:when test="${userid==null}">
 					<a href="login?op=login" class="btn btn-default btn-primary" style="float:right">Login</a>

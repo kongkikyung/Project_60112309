@@ -29,11 +29,18 @@
 		</div>
 
 		<div class="form-group">
-			<a href="contest" class="btn btn-default">목록으로</a> <a
+			<a href="contest" class="btn btn-default">목록으로</a> 
+			<c:choose>
+				<c:when test="${user.userid!=userid}">
+				</c:when>
+				<c:otherwise>
+			<a
 				href="contest?op=update&id=${writingContent.id}"
 				class="btn btn-default btn-primary">수정</a> <a href="contest?op=delete&id=${writingContent.id }"
 				class="btn btn-default btn-danger" data-action="delete"
 				data-id="${writingContent.id}">삭제</a>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<script>
 	  $(function{

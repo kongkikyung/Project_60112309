@@ -33,11 +33,18 @@
 		</div>
 
 		<div class="form-group">
-			<a href="join" class="btn btn-default">목록으로</a> <a
+			<a href="join" class="btn btn-default">목록으로</a>
+			<c:choose>
+				<c:when test="${user.userid!=userid}">
+				</c:when>
+				<c:otherwise>
+			 <a
 				href="join?op=update&id=${user.id}"
 				class="btn btn-default btn-primary">수정</a> <a href="#"
 				class="btn btn-default btn-danger" data-action="delete"
 				data-id="${user.id}">삭제</a>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<script>
 		$(function() {

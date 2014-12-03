@@ -60,9 +60,10 @@ public class UserDAO {
 			rs = stmt.executeQuery("SELECT * FROM Tusers ORDER BY name LIMIT " + startPos + ", " + numItemsInPage);
 			
 			while(rs.next()) {
-				result.getList().add(new User(rs.getInt("id1"),
+				result.getList().add(new User(rs.getInt("usernumber"),
 							rs.getString("userid"),
 							rs.getString("name"),
+							rs.getString("photo"),
 							rs.getString("pwd"),
 							rs.getString("gender"),
 							rs.getString("major"),
@@ -93,16 +94,17 @@ public class UserDAO {
 			conn = ds.getConnection();
 
 			// 질의 준비
-			stmt = conn.prepareStatement("SELECT * FROM Tusers WHERE id1 = ?");
+			stmt = conn.prepareStatement("SELECT * FROM Tusers WHERE usernumber = ?");
 			stmt.setInt(1, id);
 			
 			// 수행
 			rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				user = new User(rs.getInt("id1"),
+				user = new User(rs.getInt("usernumber"),
 						rs.getString("userid"),
 						rs.getString("name"),
+						rs.getString("photo"),
 						rs.getString("pwd"),
 						rs.getString("gender"),
 						rs.getString("major"),
@@ -132,16 +134,17 @@ public class UserDAO {
 
 			// 질의 준비
 			stmt = conn.prepareStatement(
-					"INSERT INTO Tusers(userid, name, pwd, gender, major, phone, email) " +
-					"VALUES(?, ?, ?, ?, ?, ?, ?)"
+					"INSERT INTO Tusers(userid, name, photo, pwd, gender, major, phone, email) " +
+					"VALUES(?, ?, ?, ?, ?, ?, ?, ?)"
 					);
 			stmt.setString(1,  user.getUserid());
 			stmt.setString(2,  user.getName());
-			stmt.setString(3,  user.getPwd());
-			stmt.setString(4,  user.getGender());
-			stmt.setString(5,  user.getMajor());
-			stmt.setString(6,  user.getPhone());
-			stmt.setString(7,  user.getEmail());
+			stmt.setString(3,  user.getPhoto());
+			stmt.setString(4,  user.getPwd());
+			stmt.setString(5,  user.getGender());
+			stmt.setString(6,  user.getMajor());
+			stmt.setString(7,  user.getPhone());
+			stmt.setString(8,  user.getEmail());
 			
 			// 수행
 			result = stmt.executeUpdate();
@@ -169,17 +172,17 @@ public class UserDAO {
 			// 질의 준비
 			stmt = conn.prepareStatement(
 					"UPDATE Tusers " +
-					"SET  userid=?, name=?, gender=?, major=?, phone=?, email=? " +
-					"WHERE id1=?"
+					"SET userid=?, name=?, photo=?, gender=?, major=?, phone=?, email=? " +
+					"WHERE usernumber=?"
 					);
 			stmt.setString(1,  user.getUserid());
 			stmt.setString(2,  user.getName());
-			stmt.setString(3,  user.getGender());
-			stmt.setString(4,  user.getMajor());
-			stmt.setString(5,  user.getPhone());
-			stmt.setString(6,  user.getEmail());
-			stmt.setInt(7,  user.getId());
-			
+			stmt.setString(3,  user.getPhoto());
+			stmt.setString(4,  user.getGender());
+			stmt.setString(5,  user.getMajor());
+			stmt.setString(6,  user.getPhone());
+			stmt.setString(7,  user.getEmail());
+			stmt.setInt(8,  user.getId());
 			// 수행
 			result = stmt.executeUpdate();
 		} finally {
@@ -204,7 +207,7 @@ public class UserDAO {
 			conn = ds.getConnection();
 
 			// 질의 준비
-			stmt = conn.prepareStatement("DELETE FROM Tusers WHERE id1=?");
+			stmt = conn.prepareStatement("DELETE FROM Tusers WHERE usernumber=?");
 			stmt.setInt(1,  id);
 			// 수행
 			result = stmt.executeUpdate();
@@ -237,9 +240,10 @@ public class UserDAO {
 			rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				user = new User(rs.getInt("id1"),
+				user = new User(rs.getInt("usernumber"),
 						rs.getString("userid"),
 						rs.getString("name"),
+						rs.getString("photo"),
 						rs.getString("pwd"),
 						rs.getString("gender"),
 						rs.getString("major"),

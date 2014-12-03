@@ -1,8 +1,8 @@
-CREATE DATABASE web2012 DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+CREATE DATABASE kong DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 
-GRANT ALL ON web2012.* TO 'web'@'localhost' IDENTIFIED BY 'asdf';
+GRANT ALL ON kong.* TO 'kid7258'@'localhost' IDENTIFIED BY '4789';
 
-use web2012;
+use kong;
 
 
 CREATE TABLE writings (
