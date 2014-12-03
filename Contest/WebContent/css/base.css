@@ -12,3 +12,20 @@ div.page-info b {
 .pagination_centered{
 	text-align: center;
 }
+
+#loginBtn a:hover{
+	background-color: none;
+}
+
+#loginBtn .btn {
+	margin-top: 5px;
+	float:right
+}
+
+.caption {
+	text-align : center;
+}
+
+.samllnav {
+	margin-left: 20px;
+}

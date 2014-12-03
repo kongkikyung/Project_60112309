@@ -13,7 +13,7 @@
 %>    
 	<!-- Navbar
   ================================================== -->
-  <div class="container navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container navbar-default navbar-fixed-top" role="navigation">
       <div class="container-fluid">
       <div class="navbar-header">
         <div class="navbar-brand">공모전</div>
@@ -33,27 +33,29 @@
           	}
           %>
           </ul>
+          <div id="loginBtn">
+          	 <c:choose>
+  				<c:when test="${userid==null}">
+					<a href="join?op=signup" class="btn btn-default btn-primary">Sign Up</a>
+				</c:when>
+				<c:otherwise>
+				</c:otherwise>
+			 </c:choose>
+			 
+         	 <c:choose>
+         		 <c:when test="${userid==null}">
+					<a href="login?op=login" class="btn btn-primary">Login</a>
+				</c:when>
+				<c:otherwise>
+					<a href="login?op=logout" class="btn btn-primary">Logout</a>
+				</c:otherwise>
+			</c:choose>
+			</div>
         </div>
       </div>
   </div>
   <div class="container container-fluid" style="padding-top:50px">
   		<div class="form-group">
-  			<c:choose>
-  				<c:when test="${userid==null}">
-			<a href="join?op=signup" class="btn btn-default btn-primary" style="float:right">Sign Up</a>
-				</c:when>
-				<c:otherwise>
-				</c:otherwise>
-			</c:choose>
-			<c:choose>
-				<c:when test="${userid==null}">
-					<a href="login?op=login" class="btn btn-default btn-primary" style="float:right">Login</a>
-				</c:when>
-				<c:otherwise>
-					<a href="login?op=logout" class="btn btn-default btn-primary" style="float:right">Logout</a>
-				</c:otherwise>
-			</c:choose>
+			
 		</div>
-		
-		<h1>공모전</h1>
  	</div>

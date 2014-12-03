@@ -183,6 +183,7 @@ optgroup {
 table {
   border-spacing: 0;
   border-collapse: collapse;
+  border : 0px;
 }
 td,
 th {
@@ -1393,14 +1394,47 @@ pre code {
   margin-right: auto;
   margin-left: auto;
 }
+.main_content {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.main_content > li {
+	text-align: center;
+	float: left;
+	width: 200px;
+	height: 400px;
+	padding: 0 10px 0 0;
+	line-height: 1.6em;
+}
+#photo_box {
+	
+}
+
 @media (min-width: 768px) {
   .container {
+    width: 750px;
+  }
+}
+@media (min-width: 768px) {
+  .main_content {
     width: 750px;
   }
 }
 @media (min-width: 992px) {
   .container {
     width: 970px;
+  }
+}
+@media (min-width: 992px) {
+  .main_content {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .main_content {
+    width: 1170px;
   }
 }
 @media (min-width: 1200px) {

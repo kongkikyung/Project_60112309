@@ -258,12 +258,12 @@ public class UserServlet extends HttpServlet {
 		
 				// 불러온 이미지를 BuffedImage에 담는다.
 				BufferedImage bi = rOp.getAsBufferedImage();
-				// thumb라는 이미지 버퍼를 생성, 버퍼의 사이즈는 100*100으로 설정.
-				BufferedImage thumb = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+				// thumb라는 이미지 버퍼를 생성, 버퍼의 사이즈는 180*180으로 설정.
+				BufferedImage thumb = new BufferedImage(180, 180, BufferedImage.TYPE_INT_RGB);
 		
-				// 버퍼사이즈 100*100으로  맞춰  썸네일을 그림
+				// 버퍼사이즈 180*180으로  맞춰  썸네일을 그림
 				Graphics2D g = thumb.createGraphics();
-				g.drawImage(bi, 0, 0, 100, 100, null);
+				g.drawImage(bi, 0, 0, 180, 180, null);
 		
 				/* 출력할 위치와 파일이름을 설정하고 섬네일 이미지를 생성한다. 저장하는 타입을 jpg로 설정.*/
 				File file1 = new File(imagePath + "/sm" + profilephoto);
