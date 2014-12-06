@@ -18,7 +18,7 @@
 	<div class="container">
 		<div class="alert alert-success">${msg}</div>
 		<div>
-			<a href="contest?id=${writingContent.id }" class="btn btn-default">목록으로</a>
+			<a href="contest?id=${reply.writingNumber }" class="btn btn-default">목록으로</a>
 		</div>
 	</div>
 </body>

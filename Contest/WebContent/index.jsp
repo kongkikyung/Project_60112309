@@ -32,8 +32,7 @@
 				<tr>
 					<th>title</th>
 					<th>작성자</th>
-					<th>content</th>
-					<th></th>
+					<th>작성시간</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -42,18 +41,8 @@
 						<td><a href="contest?id=${writing.id}"><c:out
 									value="${writing.title}" /></a></td>
 						<td><c:out value="${writing.userName}"/></td>
-						<td><c:out value="${writing.text}" /></td>
-						<c:choose>
-							<c:when test="${writing.userName!=userid}">
-							<td>접근 권한 없음</td>
-							</c:when>
-							<c:otherwise>
-						<td><a href="contest?op=update&id=${writing.id}"
-							class="btn btn-default btn-xs">modify</a> <a href="#"
-							class="btn btn-default btn-xs btn-danger" data-action="delete"
-							data-id="${writing.id}">delete</a></td>
-							</c:otherwise>
-						</c:choose>
+						<td><c:out value="${writing.time }"/></td>
+						
 					</tr>
 				</c:forEach>
 			</tbody>

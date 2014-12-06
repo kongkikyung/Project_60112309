@@ -34,8 +34,6 @@
         </label>
         
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</a>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">ID찾기</button>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Password찾기</button>
       </form>
 
 

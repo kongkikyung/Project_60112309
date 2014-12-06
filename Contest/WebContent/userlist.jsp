@@ -27,6 +27,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<div class="main_content">
 		<div class="row">
 		<c:forEach var="user" items="${users.list}">

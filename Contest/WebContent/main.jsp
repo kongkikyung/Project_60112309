@@ -28,12 +28,17 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
-      <img src="..." alt="...">
+      <img src="img/photo/kong.jpg" >
       <div class="carousel-caption">
-        ...
+       		<h3>시작이 반입니다.</h3>
       </div>
     </div>
-    ...
+    
+    <div class="item active">
+      <img src="img/photo/kong2.jpg" >
+      <div class="carousel-caption">
+      </div>
+    </div>
   </div>
  
   <!-- Controls -->

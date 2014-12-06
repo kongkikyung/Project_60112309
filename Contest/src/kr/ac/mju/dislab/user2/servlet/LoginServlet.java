@@ -26,12 +26,13 @@ public class LoginServlet extends HttpServlet {
 		String op = request.getParameter("op");
 		String actionUrl = "";
 		boolean ret;
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(60 * 60); 
 		
 		if (op.equals("login") && op != null) {
 			request.setAttribute("method", "POST");
 			actionUrl = "login.jsp";
 		} else if (op.equals("logout") && op != null) {
-			HttpSession session = request.getSession();
 			session.invalidate();
 			actionUrl = "index.jsp";
 		}
@@ -44,6 +45,7 @@ public class LoginServlet extends HttpServlet {
 		String actionUrl = null;
 		String msg;
 		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(60 * 60); 
 		
 		List<String> errorMsgs = new ArrayList<String>();
 		
@@ -55,6 +57,7 @@ public class LoginServlet extends HttpServlet {
 		try {
 			User userMatch = UserDAO.findByuserid(userid);
 			if(userMatch != null && pwd.equals(userMatch.getPwd())) {
+				session.setAttribute("id", userMatch.getId());
 				session.setAttribute("userid", userMatch.getUserid());
 				session.setAttribute("name", userMatch.getName());
 				actionUrl = "index.jsp";

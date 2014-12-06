@@ -61,6 +61,8 @@ public class UserServlet extends HttpServlet {
 		String op = request.getParameter("op");
 		String actionUrl = "";
 		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(60 * 60); 
+		//세션시간 60분으로 설정
 		boolean ret;
 		
 		int id = getIntFromParameter(request.getParameter("id"), -1);

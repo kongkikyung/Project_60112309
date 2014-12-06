@@ -19,6 +19,7 @@
 	<div class="container">
 		<div>
 			<form class="form-horizontal" action="contest" method="POST">
+			<input type="hidden" name="cmd" value="writing" /> 
 				<fieldset>
 					<legend class="legend">글 작성</legend>
 					<c:if test="${method == 'PUT'}">
@@ -36,8 +37,8 @@
 						<div class="form-group ">
 						<label class="col-sm-2 control-label" for="userName">작성자</label>
 						<div class="col-sm-3">
-							<input type="text" class="form-control" name="userName"
-								value="${writingContent.userName}"/>
+							<input type="text" class="form-control" name="userName" readonly
+								value="${writingContent.userName}" />
 						</div>
 						</div>
 
@@ -64,7 +65,7 @@
 					<div class="form-group ">
 						<label class="col-sm-2 control-label" for="userName">작성자</label>
 						<div class="col-sm-3">
-							<input type="text" class="form-control" name="userName" value="${name }">
+							<input type="text" class="form-control" name="userName" readonly value="${name }">
 						</div>
 					</div>
 

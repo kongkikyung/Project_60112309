@@ -34,23 +34,16 @@
 
 		<div class="form-group">
 			<a href="join" class="btn btn-default">목록으로</a>
-			<c:choose>
-				<c:when test="${user.userid!=userid}">
-				</c:when>
-				<c:otherwise>
-			 <a
-				href="join?op=update&id=${user.id}"
-				class="btn btn-default btn-primary">수정</a> <a href="#"
-				class="btn btn-default btn-danger" data-action="delete"
-				data-id="${user.id}">삭제</a>
-				</c:otherwise>
-			</c:choose>
+				<c:if test="${user.userid!=userid}">
+					<a href="#" class="btn btn-primary" data-action="follow"
+				data-id="${user.id}">Follow</a>
+				</c:if>
 		</div>
 		<script>
 		$(function() {
-			$("a[data-action='delete']").click(function() {
-				if (confirm("정말로 삭제하시겠습니까?")) {
-					location = 'join?op=delete&id=' + $(this).attr('data-id');
+			$("a[data-action='follow']").click(function() {
+				if (confirm("Follow 추가를 하면 쪽지 기능이 가능합니다.")) {
+					location = 'join?op=follow&id=' + $(this).attr('data-id');
 				}
 				return false;
 			});

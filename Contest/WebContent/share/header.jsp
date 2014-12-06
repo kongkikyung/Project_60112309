@@ -48,6 +48,7 @@
 				</c:when>
 				<c:otherwise>
 					<a href="login?op=logout" class="btn btn-primary">Logout</a>
+					<a href="join?op=update&id=${id}" class="btn btn-primary">my page</a>
 				</c:otherwise>
 			</c:choose>
 			</div>

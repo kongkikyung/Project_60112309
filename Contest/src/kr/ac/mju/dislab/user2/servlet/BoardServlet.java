@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import kr.ac.mju.dislab.user2.BoardDAO;
 import kr.ac.mju.dislab.user2.PageResult;
+import kr.ac.mju.dislab.user2.Reply;
 import kr.ac.mju.dislab.user2.WritingContent;
 
 /**
@@ -52,6 +53,7 @@ public class BoardServlet extends HttpServlet {
 		String actionUrl = "";
 		boolean ret;
 		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(60 * 60); 
 		int id = getIntFromParameter(request.getParameter("id"), -1);
 		
 		if (op == null && id > 0) {
@@ -70,7 +72,11 @@ public class BoardServlet extends HttpServlet {
 				actionUrl = "index.jsp";
 			} else if (op.equals("show")) {
 				WritingContent writing = BoardDAO.findById(id);
+				List<Reply> reply = BoardDAO.getReply(id);
+				
 				request.setAttribute("writingContent", writing);
+				request.setAttribute("replys", reply);
+				
 				if(session.getAttribute("userid")==null) actionUrl = "login.jsp";
 				else actionUrl = "show.jsp";
 			} else if (op.equals("update")) {
@@ -79,7 +85,13 @@ public class BoardServlet extends HttpServlet {
 				request.setAttribute("method", "PUT");
 				
 				actionUrl = "writing.jsp";
-			} else if (op.equals("delete")) {
+			} else if (op.equals("rupdate")) {
+				Reply reply = BoardDAO.rfindById(id);
+				request.setAttribute("replys", reply);
+				request.setAttribute("method", "PUT");
+				
+				actionUrl = "writing.jsp";
+			}  else if (op.equals("delete")) {
 				ret = BoardDAO.remove(id);
 				request.setAttribute("result", ret);
 				
@@ -88,6 +100,17 @@ public class BoardServlet extends HttpServlet {
 					actionUrl = "writingsuccess.jsp";
 				} else {
 					request.setAttribute("error", "글 삭제에 실패했습니다.");
+					actionUrl = "error.jsp";
+				}
+			} else if (op.equals("rdelete")) {
+				ret = BoardDAO.rremove(id);
+				request.setAttribute("result", ret);
+				
+				if (ret) {
+					request.setAttribute("msg", "댓글이 삭제되었습니다.");
+					actionUrl = "writingsuccess.jsp";
+				} else {
+					request.setAttribute("error", "댓글 삭제에 실패했습니다.");
 					actionUrl = "error.jsp";
 				}
 					
@@ -119,20 +142,24 @@ public class BoardServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		boolean ret = false;
-		String actionUrl;
-		String msg = null;
-		WritingContent writingContent = new WritingContent();
-
 		request.setCharacterEncoding("utf-8");
+		
+		boolean ret = false;
+		String actionUrl = null;
+		String msg = null;
+		String cmd = request.getParameter("cmd");
+		HttpSession session = request.getSession();
+		
+		List<String> errorMsgs = new ArrayList<String>();
+		WritingContent writingContent = new WritingContent();
+		Reply reply = new Reply();
+		
+		if (cmd.equals("writing")) {
 		String id = request.getParameter("id");
 		String title = request.getParameter("title");
 		String userName = request.getParameter("userName");
 		String text = request.getParameter("text");
 		
-		List<String> errorMsgs = new ArrayList<String>();
-		
-
 		if (title == " " || title.trim().length() == 0) {
 			errorMsgs.add("글 제목을 반드시 입력해주세요.");
 		}
@@ -171,9 +198,46 @@ public class BoardServlet extends HttpServlet {
 			errorMsgs.add(e.getMessage());
 			actionUrl = "error.jsp";
 		}
+		
+		} else if (cmd.equals("reply")) {
+			String id = request.getParameter("id");
+			int writingNumber = Integer.parseInt(request.getParameter("writingNumber"));
+			String userid = request.getParameter("userid");
+			String replyContent = request.getParameter("reply");
+			
+			reply.setId(getIntFromParameter(id,-1));
+			reply.setWritingNumber(writingNumber);
+			reply.setUserid(userid);
+			reply.setReply(replyContent);
+			
+			try {
+				if (isRegisterMode(request)) {
+					ret = BoardDAO.rcreate(reply);
+					msg ="댓글이 등록되었습니다.";
+					request.setAttribute("reply", reply);
+				} else {
+					ret = BoardDAO.rupdate(reply);
+					actionUrl = "replysuccess.jsp";
+					msg = "댓글이 수정되었습니다.";
+					request.setAttribute("reply", reply);
+				}
+				
+				if (ret != true || errorMsgs.size()!=0) {
+					errorMsgs.add("변경에 실패했습니다.");
+					actionUrl = "error.jsp";
+				} else {
+					request.setAttribute("msg", msg);
+					actionUrl = "replysuccess.jsp";
+					request.setAttribute("reply", reply);
+				}
+			} catch (SQLException | NamingException e) {
+				errorMsgs.add(e.getMessage());
+				actionUrl = "error.jsp";
+			}
+		}
+		
 		request.setAttribute("errorMsgs", errorMsgs);
 		RequestDispatcher dispatcher = request.getRequestDispatcher(actionUrl);
 		dispatcher.forward(request,  response);
 	}
-
 }

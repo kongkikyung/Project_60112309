@@ -131,11 +131,23 @@
 							<c:otherwise>
 								<input type="submit" class="btn btn-default btn-primary"
 									value="수정">
+									<a href="#"class="btn btn-default btn-danger" data-action="delete"
+									data-id="${user.id}">탈퇴</a>
 							</c:otherwise>
 						</c:choose>
 					</div>
 				</fieldset>
 			</form>
+			<script>
+			$(function() {
+				$("a[data-action='delete']").click(function() {
+					if (confirm("정말로 탈퇴하시겠습니까?")) {
+						location = 'join?op=delete&id=' + $(this).attr('data-id');
+					}
+					return false;
+				});
+			});
+			</script>
 		</div>
 	</div>
 </body>
