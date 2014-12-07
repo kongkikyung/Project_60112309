@@ -21,7 +21,15 @@
 		<div>
 			<form class="form-horizontal" action="join" method="POST" enctype="multipart/form-data">
 				<fieldset>
-					<legend class="legend">Sign Up</legend>
+					<c:choose>
+						<c:when test="${id==null }">
+						<legend class="legend">Sign Up</legend>
+						</c:when>
+						<c:otherwise>
+						<legend class="legend">Modify</legend>
+						</c:otherwise>
+					</c:choose>
+					
 					<c:if test="${method == 'PUT'}">
 						<input type="hidden" name="id" value="${user.id }" />
 						<input type="hidden" name="_method" value="PUT" />

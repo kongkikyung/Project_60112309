@@ -6,7 +6,7 @@ public class User implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final String[] majorNames = {"웹개발자", "개발자", "웹디자이너", "그래픽디자이너"};
+	private static final String[] majorNames = {"웹개발자", "안드로이드개발자", "IOS개발자", "웹디자이너", "그래픽디자이너"};
 	private static final String[][] genders = {{"M", "남성"}, {"F", "여성"}};
 
 	private int id;
