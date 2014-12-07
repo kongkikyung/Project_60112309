@@ -33,7 +33,14 @@
 		<c:forEach var="user" items="${users.list}">
 			<div class="col-sm-6 col-md-4">
 		   		<div class="thumbnail">
-					<img src="img/photo/sm${user.photo}">
+		   		<c:choose>
+		   			<c:when test="${user.photo == null }">
+		   				<img src="img/photo/none.jpg" width="180px" height="230px">
+		   			</c:when>
+		   			<c:otherwise>
+		   				<img src="img/photo/sm${user.photo}">
+		   			</c:otherwise>
+		   		</c:choose>
 		      		<div class="caption">
 		        		<h4>	<c:out value="${user.major }"/> : 
 								<a href="join?id=${user.id}"><c:out value="${user.userid}" />

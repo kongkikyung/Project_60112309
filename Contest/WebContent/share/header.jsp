@@ -3,9 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String[][] menu = {
-		{"./main.jsp", "Home" },
-		{"./contest", "게시판" },
-		{"./join", "UserList" }
+		{"./index.jsp", "Home" },
+		{"./contest", "공모전" },
+		{"./join", "팀원 구하기" }
 	};
 
   String currentMenu = request.getParameter("current");

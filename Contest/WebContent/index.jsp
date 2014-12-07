@@ -17,59 +17,16 @@
 	</jsp:include>
 
 	<div class="container">
-		<div class="row">
-			<div class="col-md-12 page-info">
-				<div class="pull-left">
-					Total <b>${writings.numItems }</b> writing
-				</div>
-				<div class="pull-right">
-					<b>${writings.page }</b> page / total <b>${writings.numPages }</b> pages
-				</div>
-			</div>
-		</div>
-		<table class="table table-bordered table-stripped">
-			<thead>
-				<tr>
-					<th>title</th>
-					<th>작성자</th>
-					<th>작성시간</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="writing" items="${writings.list }">
-					<tr>
-						<td><a href="contest?id=${writing.id}"><c:out
-									value="${writing.title}" /></a></td>
-						<td><c:out value="${writing.userName}"/></td>
-						<td><c:out value="${writing.time }"/></td>
-						
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-
-		<jsp:include page="page.jsp">
-			<jsp:param name="currentPage" value="${writings.page}" />
-			<jsp:param name="url" value="contest" />
-			<jsp:param name="startPage" value="${writings.startPageNo}" />
-			<jsp:param name="endPage" value="${writings.endPageNo}" />
-			<jsp:param name="numPages" value="${writings.numPages}" />
-		</jsp:include>
-
-		<div class="form-group">
-			<a href="contest?op=writing" class="btn btn-default btn-primary">글 작성</a>
-		</div>
-	</div>
+ 
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="img/photo/kong.jpg" style="margin-left: auto; margin-right: auto;">
+       		<div style="text-align:center;"><h2>공모전을 위한</h2></div>
+    </div>
+  </div>
+ 
+</div>
 	<jsp:include page="share/footer.jsp" />
 </body>
-<script>
-	$(function() {
-		$("a[data-action='delete']").click(function() {
-			if (confirm("정말로 삭제하시겠습니까?")) {
-				location = 'contest?op=delete&id=' + $(this).attr('data-id');
-			}
-			return false;
-		});
-	});
-</script>
 </html>

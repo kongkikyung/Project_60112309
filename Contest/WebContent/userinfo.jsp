@@ -35,20 +35,8 @@
 		<div class="form-group">
 			<a href="join" class="btn btn-default">목록으로</a>
 				<c:if test="${user.userid!=userid}">
-					<a href="#" class="btn btn-primary" data-action="follow"
-				data-id="${user.id}">Follow</a>
 				</c:if>
 		</div>
-		<script>
-		$(function() {
-			$("a[data-action='follow']").click(function() {
-				if (confirm("Follow 추가를 하면 쪽지 기능이 가능합니다.")) {
-					location = 'join?op=follow&id=' + $(this).attr('data-id');
-				}
-				return false;
-			});
-		});
-	</script>
 	</div>
 </body>
 </html>
